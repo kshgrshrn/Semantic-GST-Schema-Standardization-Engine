@@ -1,0 +1,22 @@
+# Fine-tuned model weights (too large, use Hugging Face or Git LFS if needed)
+semantic_renamer_model/
+semantic_renamer_model_v2/
+tmp_trainer/
+
+# Real or derived client data — never commit
+*.xlsx
+*.csv
+!sample_data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+env/
+.venv/
+
+# macOS
+.DS_Store
+._*
