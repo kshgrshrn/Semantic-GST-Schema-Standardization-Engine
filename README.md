@@ -25,6 +25,15 @@ This project solves it by using a Hugging Face Sentence Transformer to understan
 
 ## How It Works
 
+```mermaid
+flowchart LR
+    A["Raw Excel Headers<br/>Inv No, GST No, IGST Amt"] --> B["Sentence Transformer<br/>MiniLM embeddings"]
+    B --> C["Cosine Similarity Search<br/>against 61 canonical fields"]
+    C --> D["Top-K Candidate Ranking"]
+    D --> E["Header Renaming / Threshold Check"]
+    E --> F["Standardized 61-Field Output Schema"]
+```
+
 1. **Extraction:** Reads the raw `.xlsx` file with Pandas.
 2. **Embedding:** Converts the column headers into vector embeddings using `all-MiniLM-L6-v2`.
 3. **Similarity Matching:** Computes cosine similarity against all 61 canonical GST headers.
