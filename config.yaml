@@ -1,0 +1,3 @@
+model_name: all-MiniLM-L6-v2
+model_path: semantic_renamer_model
+threshold: 0.5
