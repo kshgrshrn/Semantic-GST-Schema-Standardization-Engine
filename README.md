@@ -1,7 +1,9 @@
 # GST Schema Standardization Engine
 
 > Maps messy, inconsistent Excel headers from any client file
-> to a unified 61-field GST schema using semantic embeddings, no hardcoded rules.
+> to a unified 61-field GST schema using semantic embeddings, no hardcoded rules. 
+>
+> In proof-of-concept phase. (V2)
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
@@ -24,10 +26,10 @@ When ingesting tax data (GSTR-1, GSTR-2A, purchase registers) from different cli
 
 | What the client sends | What the schema expects |
 | --------------------- | ----------------------- |
-| `Name of Supplier`    | `SupplierName`          |
-| `Supplier GST No`     | `SupplierGSTIN`         |
-| `Value Of Invoice`    | `InvoiceValue`          |
-| `IGST Amt`            | `IntegratedTaxAmount`   |
+| `Name of Supplier`  | `SupplierName`        |
+| `Supplier GST No`   | `SupplierGSTIN`       |
+| `Value Of Invoice`  | `InvoiceValue`        |
+| `IGST Amt`          | `IntegratedTaxAmount` |
 
 The old way of solving this: writing giant Python dictionaries (`if col == "Name of Supplier"`) to handle every possible variation. This breaks the moment a new client uses a slightly different name.
 
@@ -65,12 +67,12 @@ To measure how the system actually holds up, `evaluate_metrics.py` builds a dete
 
 The model was fine-tuned on domain-specific (noisy_header, canonical_header) pairs derived from real GST file variations observed during the internship. Training data is excluded from this repo for confidentiality reasons.
 
-|                                 | Baseline (`all-MiniLM-L6-v2`) | Fine-tuned (`semantic_renamer_model`) |
-| ------------------------------- | ----------------------------- | ------------------------------------- |
-| **Top-1 Accuracy**              | 89.80%                        | 88.63%                                |
-| **Top-3 Accuracy**              | 98.04%                        | 98.04%                                |
-| **Avg Top-1 Cosine Similarity** | 86.78%                        | **94.88%** (+8.1%)                    |
-| **Latency per column**          | 6.46 ms                       | **4.16 ms** (35% faster)              |
+|                                       | Baseline (`all-MiniLM-L6-v2`) | Fine-tuned (`semantic_renamer_model`) |
+| ------------------------------------- | ------------------------------- | --------------------------------------- |
+| **Top-1 Accuracy**              | 89.80%                          | 88.63%                                  |
+| **Top-3 Accuracy**              | 98.04%                          | 98.04%                                  |
+| **Avg Top-1 Cosine Similarity** | 86.78%                          | **94.88%** (+8.1%)                |
+| **Latency per column**          | 6.46 ms                         | **4.16 ms** (35% faster)          |
 
 **On Fine-Tuning:** The base model already generalizes very well to English header variations, so raw Top-1 accuracy didn't shift significantly after domain fine-tuning. The measurable gains were in cosine similarity confidence (+8.1%, from 86.78% to 94.88%) and inference latency (35% faster, 6.46ms to 4.16ms). In practice, the higher similarity margin matters: it means the 0.5 threshold rejects fewer valid matches as false negatives, reducing the volume of headers flagged for manual review.
 
@@ -162,9 +164,13 @@ Post-internship, the project was restructured into a production-ready Python pac
 - **Class-Based API:** The `SchemaMapper` class ensures models and embeddings are loaded into memory exactly once.
 - **CLI Implementation:** Argument parsing and YAML configuration support added via `cli.py`.
 
-### V3: Upcoming Infrastructure Upgrades
+### V3: Upcoming Infrastructure Upgrades (Addressing Issues)
 
+The immediate roadmap focuses on addressing several core issues and elevating the system from a strong proof-of-concept to production-grade ML infrastructure:
+
+- **Fix Inference Collision Bug [High Priority]:** Refactor `SchemaMapper` to key results by input columns rather than canonical headers, preventing silent overwrites when multiple columns map to the same target.
+- **Held-Out Evaluation Set:** Replace the current synthetic, rule-based benchmark with a hand-annotated evaluation set (300+ real-world variations) to measure true generalization and produce a confusion matrix.
+- **Hybrid Retrieval Pipeline:** Implement a two-stage architecture: BM25 for initial lexical retrieval (handling extreme abbreviations like "Inv No") followed by a Cross-Encoder for semantic reranking.
+- **Hard Negative Fine-Tuning:** Transition from standard cosine loss to `MultipleNegativesRankingLoss` (MNRL), training on explicitly constructed hard negatives (e.g., distinguishing "IGST", "CGST", and "SGST").
+- **Batch Inference & FAISS:** Optimize the inference loop by batching `model.encode()` calls and introducing FAISS for fast, scalable vector search.
 - **Audit Logging (JSONL):** Output a machine-readable log of automated decisions vs. flagged elements requiring human review.
-- **Hard Negative Training:** Train deeply against near-neighbor confusion (e.g., teaching the model to strongly differentiate between "IGST", "CGST", and "SGST").
-- **Collision Handlers:** Add deterministic logic for when two input columns map to the same target schema field.
-- **Pytest Suite:** Introduce a proper testing harness validating the mapper against expected edge cases and synthetic noise.
