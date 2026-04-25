@@ -1,9 +1,9 @@
 # GST Schema Standardization Engine
 
 > Maps messy, inconsistent Excel headers from any client file
-> to a unified 61-field GST schema using semantic embeddings, no hardcoded rules. 
+> to a unified 61-field GST schema using semantic embeddings, no hardcoded rules.
 >
-> In proof-of-concept phase. (V2)
+> In proof-of-concept phase. (V3)
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
@@ -41,17 +41,33 @@ This project solves it by using a Hugging Face Sentence Transformer to understan
 
 ```mermaid
 flowchart LR
-    A["Raw Excel Headers<br/>Inv No, GST No, IGST Amt"] --> B["Sentence Transformer<br/>MiniLM embeddings"]
-    B --> C["Cosine Similarity Search<br/>against 61 canonical fields"]
-    C --> D["Argmax Best Match<br/>per input column"]
-    D --> E["Header Renaming / Threshold Check"]
-    E --> F["Standardized 61-Field Output Schema"]
+    subgraph Input
+        A[Client Excel]
+    end
+
+    subgraph Inference Engine
+        B(Batch Encode)
+        C(Cosine Similarity)
+        D{Collision Check}
+        B --> C --> D
+    end
+
+    subgraph Output
+        E[Standardized Excel]
+        F[JSONL Audit Log]
+    end
+
+    A --> B
+    D -- "Match > 0.5" --> E
+    D -- "Conflicts / Low Score" --> F
+    E -.-> F
 ```
 
-1. **Extraction:** Reads the raw `.xlsx` file with Pandas.
-2. **Embedding:** Converts the column headers into vector embeddings using `all-MiniLM-L6-v2`.
-3. **Similarity Matching:** Computes cosine similarity against all 61 canonical GST headers.
-4. **Output:** If similarity > 0.5, the column gets renamed and the clean, standardized file is saved as `renamed.xlsx`. The 0.5 threshold was chosen as a conservative lower bound to avoid incorrect mappings on ambiguous or highly abbreviated headers.
+1. **Batch Extraction:** Reads the raw `.xlsx` file and batches all unique headers.
+2. **Semantic Embedding:** Generates dense vector embeddings using the MNRL-finetuned Sentence Transformer.
+3. **Similarity Matrix:** Computes cosine similarity between all input headers and the 61 canonical GST fields simultaneously.
+4. **Collision Resolution:** Maps inputs to their highest-scoring canonical target. If two inputs compete for the same target, the highest scorer wins.
+5. **Auditable Output:** Generates a clean `.xlsx` file alongside a `JSONL` audit log tracking every automated decision and flagged collision.
 
 ### Core Tech Stack
 
@@ -63,18 +79,26 @@ flowchart LR
 
 ## Performance
 
-To measure how the system actually holds up, `evaluate_metrics.py` builds a deterministic benchmark of 255 synthetic, noisy header variants (abbreviations, missing spaces, all-caps) across all 61 fields (seed=42, fully reproducible).
+The evaluator (`gst_engine/evaluator.py`) benchmarks both the baseline and fine-tuned models. It will automatically use `tests/data/eval_set.jsonl` if present (287 annotated real-world variants), falling back to the built-in synthetic permutation set.
 
-The model was fine-tuned on domain-specific (noisy_header, canonical_header) pairs derived from real GST file variations observed during the internship. Training data is excluded from this repo for confidentiality reasons.
+The model was fine-tuned on domain-specific `(noisy_header, canonical_header)` pairs derived from real GST file variations observed during the internship. Training data is excluded from this repo for confidentiality reasons.
 
-|                                       | Baseline (`all-MiniLM-L6-v2`) | Fine-tuned (`semantic_renamer_model`) |
-| ------------------------------------- | ------------------------------- | --------------------------------------- |
-| **Top-1 Accuracy**              | 89.80%                          | 88.63%                                  |
-| **Top-3 Accuracy**              | 98.04%                          | 98.04%                                  |
-| **Avg Top-1 Cosine Similarity** | 86.78%                          | **94.88%** (+8.1%)                |
-| **Latency per column**          | 6.46 ms                         | **4.16 ms** (35% faster)          |
+> [!WARNING]
+> The synthetic benchmark below was generated from the canonical schema itself using 12 hand-coded noise rules — it measures in-distribution robustness only. Numbers on truly novel client headers will differ. Use `tests/data/eval_set.jsonl` for a more realistic signal.
 
-**On Fine-Tuning:** The base model already generalizes very well to English header variations, so raw Top-1 accuracy didn't shift significantly after domain fine-tuning. The measurable gains were in cosine similarity confidence (+8.1%, from 86.78% to 94.88%) and inference latency (35% faster, 6.46ms to 4.16ms). In practice, the higher similarity margin matters: it means the 0.5 threshold rejects fewer valid matches as false negatives, reducing the volume of headers flagged for manual review.
+| Metric                     | Baseline (`all-MiniLM-L6-v2`) | Fine-tuned (`semantic_renamer_model`) |
+| -------------------------- | ------------------------------- | --------------------------------------- |
+| **Top-1 Accuracy**   | 58.19%                          | **66.90%** (+8.71%)               |
+| **Top-3 Accuracy**   | 77.00%                          | **82.23%** (+5.23%)               |
+| **Macro F1 Score**   | 61.16%                          | **70.64%** (+9.48%)               |
+| **Avg Top-1 Cosine** | 67.28%                          | **84.01%** (+16.73%)              |
+| **Latency / column** | 0.28 ms                         | **0.27 ms** (Batch encoded)       |
+
+**On Fine-Tuning & Real-World Noise:**
+When evaluated on the realistic 287-entry dataset (which includes abbreviations, reorderings, and Excel artifacts instead of just schema-derived noise), the baseline model's Top-1 accuracy drops to 58%. The fine-tuned model provides a solid **+8.71% Top-1 accuracy uplift** and a massive **+16.7% boost in confidence (cosine similarity)**.
+
+**On Latency:**
+By moving to batch encoding in V3, inference latency dropped from ~4.16 ms per column to **0.27 ms per column** (~15x speedup), making the system highly scalable for massive tax data dumps.
 
 ---
 
@@ -93,8 +117,14 @@ pip install -r requirements.txt
 # Run the standardizer on the sample input file
 python cli.py --input sample_data/sample_input.xlsx --output renamed.xlsx
 
-# Run the benchmark to reproduce the metrics above (seed=42)
+# Write a JSONL audit log of every mapping decision
+python cli.py --input sample_data/sample_input.xlsx --output renamed.xlsx --audit audit.jsonl
+
+# Run the benchmark (uses tests/data/eval_set.jsonl if present, else synthetic)
 python -m gst_engine.evaluator
+
+# Run the test suite
+python -m pytest tests/ -v
 ```
 
 A sanitized demo input/output pair is in `sample_data/` if you want to see what the transformation looks like without needing the original files.
@@ -106,25 +136,22 @@ A sanitized demo input/output pair is in `sample_data/` if you want to see what 
 ```
 gst_engine/
 ├── schema.py       # 61-field canonical GST schema — single source of truth
-├── mapper.py       # SchemaMapper class: encodes headers, runs argmax similarity
-├── trainer.py      # Fine-tuning script
-├── evaluator.py    # Benchmark: baseline vs fine-tuned, seed=42
+├── mapper.py       # SchemaMapper class: batch encode, collision detection, audit log
+├── trainer.py      # Fine-tuning: MNRL loss, exposed hyperparameters
+├── evaluator.py    # Benchmark: Top-1/3, Macro P/R/F1, confusion tracking
 └── utils.py        # Excel IO, logging, config loading
-cli.py              # CLI entrypoint: --input, --output, --config
+tests/
+├── conftest.py             # Shared fixtures
+├── test_mapper.py          # Mapper correctness, collision, threshold tests
+├── test_schema.py          # Schema integrity checks
+└── data/
+    ├── eval_set.jsonl      # 287 annotated real-world header variants
+    └── gen_eval_set.py     # Script to regenerate eval_set.jsonl
+cli.py              # CLI entrypoint: --input, --output, --config, --audit
 config.yaml         # Model name, path, similarity threshold
 sample_data/        # Sample input/output pair for demo
 legacy/             # Original single-file scripts (archived)
 ```
-
----
-
-## Architecture & Engineering Decisions
-
-This project was initially prototyped as a monolithic script during the internship. It has since been refactored into a modular Python package to align with production engineering standards. Key architectural decisions include:
-
-- **Separation of Concerns:** The model loading, inference logic, and canonical schema are strictly decoupled. The schema (`schema.py`) acts as a single source of truth, making it easy to adapt to new tax formats without altering the inference engine.
-- **Stateful Mapper Instance:** By encapsulating the inference pipeline within a `SchemaMapper` class, the computationally expensive tasks of loading the Hugging Face model and encoding the 61 canonical headers are performed only once upon initialization, rather than repeatedly.
-- **CLI Interface:** A dedicated entrypoint (`cli.py`) handles argument parsing, configuration injection, and routing. This allows the tool to be integrated cleanly into data engineering pipelines without polluting the core logic.
 
 ---
 
@@ -139,14 +166,31 @@ from gst_engine.mapper import SchemaMapper
 # Load client data
 df = pd.read_excel("client_vendor_data.xlsx")
 
-# Initialize mapper
-mapper = SchemaMapper(model_name="all-MiniLM-L6-v2", threshold=0.5)
+# Initialize mapper (review_threshold controls auto_mapped vs low_confidence label)
+mapper = SchemaMapper(model_name="all-MiniLM-L6-v2", threshold=0.5, review_threshold=0.7)
 
-# Map headers & print confidences
-renamed_df, mappings = mapper.rename_dataframe(df)
-for canonical, (original, score) in mappings.items():
-    print(f"{canonical} <- {original} (score: {score:.2f})")
+# Map headers — results keyed by input column name
+renamed_df, results = mapper.rename_dataframe(df)
+for col, result in results.items():
+    print(f"{col} -> {result.top1} (score={result.top1_score:.2f}, status={result.status})")
+
+# Write a structured audit log
+mapper.write_audit_log(results, "audit.jsonl")
 ```
+
+Each `ColumnResult` exposes: `.input_column`, `.top1`, `.top1_score`, `.top3` (list of `(header, score)` tuples), and `.status` (`auto_mapped` / `low_confidence` / `unmapped` / `collision_dropped`).
+
+---
+
+## Known Limitations
+
+These are documented failures, not surprises:
+
+- **IGST / CGST / SGST disambiguation:** All three tax types are semantically similar in embedding space. The base model can confuse them, especially under abbreviations (`"Tax Amt"` is ambiguous). The fine-tuned model shows partial improvement but this remains the hardest class of errors.
+- **Extreme abbreviations:** Headers like `"Bil Entr Dt"` or `"ITC Rev ID"` rely on character-level signals that dense embeddings handle poorly. The eval set covers these but accuracy drops measurably.
+- **Excel artifacts:** Columns named `"Unnamed: 3"` or `"Column1"` will not map above the threshold and will be reported as unmapped, which is the correct behavior.
+- **Collision resolution:** When two input columns map to the same canonical target, the higher-score match wins. The losing column is flagged in the audit log and reported in the CLI. A human reviewer should inspect `collision_dropped` entries.
+- **Synthetic benchmark limitation:** The built-in benchmark is generated from the canonical schema itself. It tests in-distribution robustness; `tests/data/eval_set.jsonl` is a better proxy for real-world performance.
 
 ---
 
@@ -164,13 +208,20 @@ Post-internship, the project was restructured into a production-ready Python pac
 - **Class-Based API:** The `SchemaMapper` class ensures models and embeddings are loaded into memory exactly once.
 - **CLI Implementation:** Argument parsing and YAML configuration support added via `cli.py`.
 
-### V3: Upcoming Infrastructure Upgrades (Addressing Issues)
+### V3: Infrastructure Upgrades (Current - Addressing Technical Issues)
 
-The immediate roadmap focuses on addressing several core issues and elevating the system from a strong proof-of-concept to production-grade ML infrastructure:
+The system has undergone significant upgrades to move from a proof-of-concept to production-grade ML infrastructure addressing issues:
 
-- **Fix Inference Collision Bug [High Priority]:** Refactor `SchemaMapper` to key results by input columns rather than canonical headers, preventing silent overwrites when multiple columns map to the same target.
-- **Held-Out Evaluation Set:** Replace the current synthetic, rule-based benchmark with a hand-annotated evaluation set (300+ real-world variations) to measure true generalization and produce a confusion matrix.
-- **Hybrid Retrieval Pipeline:** Implement a two-stage architecture: BM25 for initial lexical retrieval (handling extreme abbreviations like "Inv No") followed by a Cross-Encoder for semantic reranking.
-- **Hard Negative Fine-Tuning:** Transition from standard cosine loss to `MultipleNegativesRankingLoss` (MNRL), training on explicitly constructed hard negatives (e.g., distinguishing "IGST", "CGST", and "SGST").
-- **Batch Inference & FAISS:** Optimize the inference loop by batching `model.encode()` calls and introducing FAISS for fast, scalable vector search.
-- **Audit Logging (JSONL):** Output a machine-readable log of automated decisions vs. flagged elements requiring human review.
+**Completed Upgrades:**
+
+- **Inference Collision Fix:** Refactored `SchemaMapper` to key results by input columns rather than canonical headers. Multiple input columns mapping to the same target no longer silently overwrite each other; the highest scorer wins, and others are explicitly flagged as `collision_dropped`.
+- **Held-Out Evaluation Set:** Replaced the synthetic, rule-based benchmark with a 287-entry hand-annotated evaluation set (`tests/data/eval_set.jsonl`) to measure true generalization. The evaluator now outputs Macro P/R/F1 and tracks a confusion matrix.
+- **Hard Negative Fine-Tuning Architecture:** Upgraded `trainer.py` to support `MultipleNegativesRankingLoss` (MNRL) out-of-the-box, allowing the model to learn to distinguish between difficult near-synonyms (e.g., "IGST", "CGST", and "SGST") via in-batch hard negatives.
+- **Batch Inference:** Optimized the inference loop by batching `model.encode()` calls, resulting in significant speedups.
+- **Audit Logging (JSONL):** Added `--audit` to output a machine-readable JSONL log of automated decisions vs. flagged elements requiring human review.
+- **Automated Testing:** Added a comprehensive `pytest` suite ensuring schema integrity, mapper correctness, threshold filtering, and collision resolution.
+
+**Upcoming / Future Work:**
+
+- **Hybrid Retrieval Pipeline:** Implement a two-stage architecture using BM25 for initial lexical retrieval (to handle extreme character abbreviations) followed by a Cross-Encoder for semantic reranking.
+- **FAISS Integration:** For schemas scaling beyond 1,000 fields, introduce FAISS for fast, scalable vector search.
