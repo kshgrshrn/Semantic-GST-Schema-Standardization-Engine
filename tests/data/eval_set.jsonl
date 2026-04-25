@@ -1,0 +1,287 @@
+{"noisy": "Source ID", "canonical": "SourceIdentifier", "category": "abbreviation"}
+{"noisy": "Src Identifier", "canonical": "SourceIdentifier", "category": "abbreviation"}
+{"noisy": "source identifier", "canonical": "SourceIdentifier", "category": "lowercase"}
+{"noisy": "SOURCE IDENTIFIER", "canonical": "SourceIdentifier", "category": "allcaps"}
+{"noisy": "Src Id", "canonical": "SourceIdentifier", "category": "abbreviation"}
+{"noisy": "Source File", "canonical": "SourceFileName", "category": "truncation"}
+{"noisy": "File Name", "canonical": "SourceFileName", "category": "reorder"}
+{"noisy": "Src File Name", "canonical": "SourceFileName", "category": "abbreviation"}
+{"noisy": "source file name", "canonical": "SourceFileName", "category": "lowercase"}
+{"noisy": "SOURCE FILE NAME", "canonical": "SourceFileName", "category": "allcaps"}
+{"noisy": "GL Code", "canonical": "GLAccountCode", "category": "abbreviation"}
+{"noisy": "G/L Account", "canonical": "GLAccountCode", "category": "reorder"}
+{"noisy": "GL Acc Code", "canonical": "GLAccountCode", "category": "abbreviation"}
+{"noisy": "General Ledger Code", "canonical": "GLAccountCode", "category": "expansion"}
+{"noisy": "gl account code", "canonical": "GLAccountCode", "category": "lowercase"}
+{"noisy": "Div", "canonical": "Division", "category": "abbreviation"}
+{"noisy": "Business Division", "canonical": "Division", "category": "expansion"}
+{"noisy": "division", "canonical": "Division", "category": "lowercase"}
+{"noisy": "DIVISION", "canonical": "Division", "category": "allcaps"}
+{"noisy": "Sub Div", "canonical": "SubDivision", "category": "abbreviation"}
+{"noisy": "Sub-Division", "canonical": "SubDivision", "category": "hyphen"}
+{"noisy": "subdivision", "canonical": "SubDivision", "category": "lowercase"}
+{"noisy": "SUB DIVISION", "canonical": "SubDivision", "category": "allcaps"}
+{"noisy": "PC1", "canonical": "ProfitCentre1", "category": "abbreviation"}
+{"noisy": "Profit Centre 1", "canonical": "ProfitCentre1", "category": "spaced"}
+{"noisy": "Profit Center 1", "canonical": "ProfitCentre1", "category": "us_spelling"}
+{"noisy": "profit centre1", "canonical": "ProfitCentre1", "category": "lowercase"}
+{"noisy": "PC2", "canonical": "ProfitCentre2", "category": "abbreviation"}
+{"noisy": "Profit Centre 2", "canonical": "ProfitCentre2", "category": "spaced"}
+{"noisy": "Profit Center 2", "canonical": "ProfitCentre2", "category": "us_spelling"}
+{"noisy": "profit centre2", "canonical": "ProfitCentre2", "category": "lowercase"}
+{"noisy": "Plant", "canonical": "PlantCode", "category": "truncation"}
+{"noisy": "Plant No", "canonical": "PlantCode", "category": "abbreviation"}
+{"noisy": "Plant Cd", "canonical": "PlantCode", "category": "abbreviation"}
+{"noisy": "plant code", "canonical": "PlantCode", "category": "lowercase"}
+{"noisy": "PLANT CODE", "canonical": "PlantCode", "category": "allcaps"}
+{"noisy": "Return Period", "canonical": "ReturnPeriod", "category": "spaced"}
+{"noisy": "Ret Period", "canonical": "ReturnPeriod", "category": "abbreviation"}
+{"noisy": "Filing Period", "canonical": "ReturnPeriod", "category": "synonym"}
+{"noisy": "return period", "canonical": "ReturnPeriod", "category": "lowercase"}
+{"noisy": "RETURN PERIOD", "canonical": "ReturnPeriod", "category": "allcaps"}
+{"noisy": "Recipient GST No", "canonical": "RecipientGSTIN", "category": "abbreviation"}
+{"noisy": "Buyer GSTIN", "canonical": "RecipientGSTIN", "category": "synonym"}
+{"noisy": "Recipient Tax ID", "canonical": "RecipientGSTIN", "category": "synonym"}
+{"noisy": "recipient gstin", "canonical": "RecipientGSTIN", "category": "lowercase"}
+{"noisy": "RECIPIENT GSTIN", "canonical": "RecipientGSTIN", "category": "allcaps"}
+{"noisy": "Doc Type", "canonical": "DocumentType", "category": "abbreviation"}
+{"noisy": "Doct Type", "canonical": "DocumentType", "category": "typo"}
+{"noisy": "Document Typ", "canonical": "DocumentType", "category": "truncation"}
+{"noisy": "document type", "canonical": "DocumentType", "category": "lowercase"}
+{"noisy": "DOC TYPE", "canonical": "DocumentType", "category": "allcaps"}
+{"noisy": "Supply Typ", "canonical": "SupplyType", "category": "truncation"}
+{"noisy": "Sply Type", "canonical": "SupplyType", "category": "abbreviation"}
+{"noisy": "Type of Supply", "canonical": "SupplyType", "category": "reorder"}
+{"noisy": "supply type", "canonical": "SupplyType", "category": "lowercase"}
+{"noisy": "SUPPLY TYPE", "canonical": "SupplyType", "category": "allcaps"}
+{"noisy": "Doc No", "canonical": "DocumentNumber", "category": "abbreviation"}
+{"noisy": "Document No", "canonical": "DocumentNumber", "category": "abbreviation"}
+{"noisy": "Voucher Number", "canonical": "DocumentNumber", "category": "synonym"}
+{"noisy": "Doc Num", "canonical": "DocumentNumber", "category": "abbreviation"}
+{"noisy": "document number", "canonical": "DocumentNumber", "category": "lowercase"}
+{"noisy": "Doc Date", "canonical": "DocumentDate", "category": "abbreviation"}
+{"noisy": "Document Dt", "canonical": "DocumentDate", "category": "abbreviation"}
+{"noisy": "Date of Document", "canonical": "DocumentDate", "category": "reorder"}
+{"noisy": "document date", "canonical": "DocumentDate", "category": "lowercase"}
+{"noisy": "DOC DATE", "canonical": "DocumentDate", "category": "allcaps"}
+{"noisy": "Orig Doc No", "canonical": "OriginalDocumentNumber", "category": "abbreviation"}
+{"noisy": "Original Doc Num", "canonical": "OriginalDocumentNumber", "category": "abbreviation"}
+{"noisy": "Org Doc No", "canonical": "OriginalDocumentNumber", "category": "abbreviation"}
+{"noisy": "original document number", "canonical": "OriginalDocumentNumber", "category": "lowercase"}
+{"noisy": "Orig Doc Date", "canonical": "OriginalDocumentDate", "category": "abbreviation"}
+{"noisy": "Original Doc Dt", "canonical": "OriginalDocumentDate", "category": "abbreviation"}
+{"noisy": "Org Doc Date", "canonical": "OriginalDocumentDate", "category": "abbreviation"}
+{"noisy": "original document date", "canonical": "OriginalDocumentDate", "category": "lowercase"}
+{"noisy": "CR DR Pre GST", "canonical": "CRDRPreGST", "category": "spaced"}
+{"noisy": "Credit Debit Pre GST", "canonical": "CRDRPreGST", "category": "expansion"}
+{"noisy": "Pre GST CRDR", "canonical": "CRDRPreGST", "category": "reorder"}
+{"noisy": "crdr pre gst", "canonical": "CRDRPreGST", "category": "lowercase"}
+{"noisy": "Line No", "canonical": "LineNumber", "category": "abbreviation"}
+{"noisy": "Sr No", "canonical": "LineNumber", "category": "synonym"}
+{"noisy": "Serial Number", "canonical": "LineNumber", "category": "synonym"}
+{"noisy": "line number", "canonical": "LineNumber", "category": "lowercase"}
+{"noisy": "LINE NO", "canonical": "LineNumber", "category": "allcaps"}
+{"noisy": "Supplier GST No", "canonical": "SupplierGSTIN", "category": "abbreviation"}
+{"noisy": "Vendor GSTIN", "canonical": "SupplierGSTIN", "category": "synonym"}
+{"noisy": "Seller GST ID", "canonical": "SupplierGSTIN", "category": "synonym"}
+{"noisy": "supplier gstin", "canonical": "SupplierGSTIN", "category": "lowercase"}
+{"noisy": "SUPPLIER GSTIN", "canonical": "SupplierGSTIN", "category": "allcaps"}
+{"noisy": "Supplier Tax No", "canonical": "SupplierGSTIN", "category": "synonym"}
+{"noisy": "Orig Supplier GSTIN", "canonical": "OriginalSupplierGSTIN", "category": "abbreviation"}
+{"noisy": "Original Vendor GST No", "canonical": "OriginalSupplierGSTIN", "category": "synonym"}
+{"noisy": "Org Supplier GST ID", "canonical": "OriginalSupplierGSTIN", "category": "abbreviation"}
+{"noisy": "original supplier gstin", "canonical": "OriginalSupplierGSTIN", "category": "lowercase"}
+{"noisy": "Supplier Name", "canonical": "SupplierName", "category": "spaced"}
+{"noisy": "Vendor Name", "canonical": "SupplierName", "category": "synonym"}
+{"noisy": "Party Name", "canonical": "SupplierName", "category": "synonym"}
+{"noisy": "Seller Name", "canonical": "SupplierName", "category": "synonym"}
+{"noisy": "supplier name", "canonical": "SupplierName", "category": "lowercase"}
+{"noisy": "Name of Supplier", "canonical": "SupplierName", "category": "reorder"}
+{"noisy": "Supplier Code", "canonical": "SupplierCode", "category": "spaced"}
+{"noisy": "Vendor Code", "canonical": "SupplierCode", "category": "synonym"}
+{"noisy": "Party Code", "canonical": "SupplierCode", "category": "synonym"}
+{"noisy": "Supp Cd", "canonical": "SupplierCode", "category": "abbreviation"}
+{"noisy": "supplier code", "canonical": "SupplierCode", "category": "lowercase"}
+{"noisy": "Place of Supply", "canonical": "POS", "category": "expansion"}
+{"noisy": "Place Of Sply", "canonical": "POS", "category": "abbreviation"}
+{"noisy": "State of Supply", "canonical": "POS", "category": "synonym"}
+{"noisy": "pos", "canonical": "POS", "category": "lowercase"}
+{"noisy": "P.O.S.", "canonical": "POS", "category": "punctuation"}
+{"noisy": "Port Code", "canonical": "PortCode", "category": "spaced"}
+{"noisy": "Port Cd", "canonical": "PortCode", "category": "abbreviation"}
+{"noisy": "port code", "canonical": "PortCode", "category": "lowercase"}
+{"noisy": "PORT CODE", "canonical": "PortCode", "category": "allcaps"}
+{"noisy": "Bill of Entry", "canonical": "BillOfEntry", "category": "spaced"}
+{"noisy": "Bil of Entr", "canonical": "BillOfEntry", "category": "truncation"}
+{"noisy": "BOE", "canonical": "BillOfEntry", "category": "acronym"}
+{"noisy": "Bill Of Entry No", "canonical": "BillOfEntry", "category": "extra_word"}
+{"noisy": "bill of entry", "canonical": "BillOfEntry", "category": "lowercase"}
+{"noisy": "BOE Date", "canonical": "BillOfEntryDate", "category": "acronym"}
+{"noisy": "Bill of Entry Date", "canonical": "BillOfEntryDate", "category": "spaced"}
+{"noisy": "Bil Entr Dt", "canonical": "BillOfEntryDate", "category": "abbreviation"}
+{"noisy": "bill of entry date", "canonical": "BillOfEntryDate", "category": "lowercase"}
+{"noisy": "CIF Value", "canonical": "CIFValue", "category": "spaced"}
+{"noisy": "CIF Val", "canonical": "CIFValue", "category": "abbreviation"}
+{"noisy": "Cost Insurance Freight", "canonical": "CIFValue", "category": "expansion"}
+{"noisy": "cif value", "canonical": "CIFValue", "category": "lowercase"}
+{"noisy": "Custom Duty", "canonical": "CustomDuty", "category": "spaced"}
+{"noisy": "Customs Duty", "canonical": "CustomDuty", "category": "plural"}
+{"noisy": "Import Duty", "canonical": "CustomDuty", "category": "synonym"}
+{"noisy": "Cust Duty", "canonical": "CustomDuty", "category": "abbreviation"}
+{"noisy": "custom duty", "canonical": "CustomDuty", "category": "lowercase"}
+{"noisy": "HSN Code", "canonical": "HSNorSAC", "category": "partial"}
+{"noisy": "SAC Code", "canonical": "HSNorSAC", "category": "partial"}
+{"noisy": "HSN/SAC", "canonical": "HSNorSAC", "category": "slash"}
+{"noisy": "HSN or SAC", "canonical": "HSNorSAC", "category": "spaced"}
+{"noisy": "hsn code", "canonical": "HSNorSAC", "category": "lowercase"}
+{"noisy": "HSN SAC Code", "canonical": "HSNorSAC", "category": "spaced"}
+{"noisy": "Item Code", "canonical": "ItemCode", "category": "spaced"}
+{"noisy": "Product Code", "canonical": "ItemCode", "category": "synonym"}
+{"noisy": "SKU", "canonical": "ItemCode", "category": "acronym"}
+{"noisy": "Item Cd", "canonical": "ItemCode", "category": "abbreviation"}
+{"noisy": "item code", "canonical": "ItemCode", "category": "lowercase"}
+{"noisy": "Item Description", "canonical": "ItemDescriptiion", "category": "corrected_typo"}
+{"noisy": "Item Desc", "canonical": "ItemDescriptiion", "category": "abbreviation"}
+{"noisy": "Product Description", "canonical": "ItemDescriptiion", "category": "synonym"}
+{"noisy": "Goods Description", "canonical": "ItemDescriptiion", "category": "synonym"}
+{"noisy": "item description", "canonical": "ItemDescriptiion", "category": "lowercase"}
+{"noisy": "Item Category", "canonical": "CategoryOfItem", "category": "reorder"}
+{"noisy": "Category", "canonical": "CategoryOfItem", "category": "truncation"}
+{"noisy": "Product Category", "canonical": "CategoryOfItem", "category": "synonym"}
+{"noisy": "category of item", "canonical": "CategoryOfItem", "category": "lowercase"}
+{"noisy": "UOM", "canonical": "UnitOfMeasurement", "category": "acronym"}
+{"noisy": "Unit", "canonical": "UnitOfMeasurement", "category": "truncation"}
+{"noisy": "Unit of Measure", "canonical": "UnitOfMeasurement", "category": "truncation"}
+{"noisy": "Uom Code", "canonical": "UnitOfMeasurement", "category": "acronym"}
+{"noisy": "unit of measurement", "canonical": "UnitOfMeasurement", "category": "lowercase"}
+{"noisy": "Qty", "canonical": "Quantity", "category": "abbreviation"}
+{"noisy": "Qnty", "canonical": "Quantity", "category": "abbreviation"}
+{"noisy": "Units", "canonical": "Quantity", "category": "synonym"}
+{"noisy": "quantity", "canonical": "Quantity", "category": "lowercase"}
+{"noisy": "QUANTITY", "canonical": "Quantity", "category": "allcaps"}
+{"noisy": "Taxable Amt", "canonical": "TaxableValue", "category": "abbreviation"}
+{"noisy": "Taxable Amount", "canonical": "TaxableValue", "category": "synonym"}
+{"noisy": "Assessable Value", "canonical": "TaxableValue", "category": "synonym"}
+{"noisy": "Tax Base", "canonical": "TaxableValue", "category": "synonym"}
+{"noisy": "taxable value", "canonical": "TaxableValue", "category": "lowercase"}
+{"noisy": "IGST Rate", "canonical": "IntegratedTaxRate", "category": "abbreviation"}
+{"noisy": "IGST %", "canonical": "IntegratedTaxRate", "category": "abbreviation"}
+{"noisy": "Integrated Tax Rate", "canonical": "IntegratedTaxRate", "category": "spaced"}
+{"noisy": "igst rate", "canonical": "IntegratedTaxRate", "category": "lowercase"}
+{"noisy": "IGST Pct", "canonical": "IntegratedTaxRate", "category": "abbreviation"}
+{"noisy": "IGST Amt", "canonical": "IntegratedTaxAmount", "category": "abbreviation"}
+{"noisy": "IGST Amount", "canonical": "IntegratedTaxAmount", "category": "abbreviation"}
+{"noisy": "Integrated Tax Amt", "canonical": "IntegratedTaxAmount", "category": "abbreviation"}
+{"noisy": "igst amount", "canonical": "IntegratedTaxAmount", "category": "lowercase"}
+{"noisy": "IGST", "canonical": "IntegratedTaxAmount", "category": "acronym"}
+{"noisy": "IGST Value", "canonical": "IntegratedTaxAmount", "category": "synonym"}
+{"noisy": "CGST Rate", "canonical": "CentralTaxRate", "category": "abbreviation"}
+{"noisy": "CGST %", "canonical": "CentralTaxRate", "category": "abbreviation"}
+{"noisy": "Central Tax Rate", "canonical": "CentralTaxRate", "category": "spaced"}
+{"noisy": "cgst rate", "canonical": "CentralTaxRate", "category": "lowercase"}
+{"noisy": "CGST Pct", "canonical": "CentralTaxRate", "category": "abbreviation"}
+{"noisy": "CGST Amt", "canonical": "CentralTaxAmount", "category": "abbreviation"}
+{"noisy": "CGST Amount", "canonical": "CentralTaxAmount", "category": "abbreviation"}
+{"noisy": "Central Tax Amt", "canonical": "CentralTaxAmount", "category": "abbreviation"}
+{"noisy": "cgst amount", "canonical": "CentralTaxAmount", "category": "lowercase"}
+{"noisy": "CGST", "canonical": "CentralTaxAmount", "category": "acronym"}
+{"noisy": "CGST Value", "canonical": "CentralTaxAmount", "category": "synonym"}
+{"noisy": "SGST Rate", "canonical": "StateUTTaxRate", "category": "abbreviation"}
+{"noisy": "UTGST Rate", "canonical": "StateUTTaxRate", "category": "abbreviation"}
+{"noisy": "SGST %", "canonical": "StateUTTaxRate", "category": "abbreviation"}
+{"noisy": "State Tax Rate", "canonical": "StateUTTaxRate", "category": "synonym"}
+{"noisy": "sgst rate", "canonical": "StateUTTaxRate", "category": "lowercase"}
+{"noisy": "SGST Amt", "canonical": "StateUTTaxAmount", "category": "abbreviation"}
+{"noisy": "SGST Amount", "canonical": "StateUTTaxAmount", "category": "abbreviation"}
+{"noisy": "UTGST Amt", "canonical": "StateUTTaxAmount", "category": "abbreviation"}
+{"noisy": "sgst amount", "canonical": "StateUTTaxAmount", "category": "lowercase"}
+{"noisy": "SGST", "canonical": "StateUTTaxAmount", "category": "acronym"}
+{"noisy": "SGST Value", "canonical": "StateUTTaxAmount", "category": "synonym"}
+{"noisy": "Cess Amt", "canonical": "CessAmountAdvalorem", "category": "abbreviation"}
+{"noisy": "Cess Amount Ad Valorem", "canonical": "CessAmountAdvalorem", "category": "spaced"}
+{"noisy": "Ad Valorem Cess", "canonical": "CessAmountAdvalorem", "category": "reorder"}
+{"noisy": "cess amount advalorem", "canonical": "CessAmountAdvalorem", "category": "lowercase"}
+{"noisy": "Cess (Ad Valorem)", "canonical": "CessAmountAdvalorem", "category": "punctuation"}
+{"noisy": "Cess Rate", "canonical": "CessRateSpecific", "category": "truncation"}
+{"noisy": "Specific Cess Rate", "canonical": "CessRateSpecific", "category": "reorder"}
+{"noisy": "cess rate specific", "canonical": "CessRateSpecific", "category": "lowercase"}
+{"noisy": "CESS RATE SPECIFIC", "canonical": "CessRateSpecific", "category": "allcaps"}
+{"noisy": "Specific Cess Amt", "canonical": "CessAmountSpecific", "category": "abbreviation"}
+{"noisy": "Cess Specific Amt", "canonical": "CessAmountSpecific", "category": "reorder"}
+{"noisy": "cess amount specific", "canonical": "CessAmountSpecific", "category": "lowercase"}
+{"noisy": "Invoice Amt", "canonical": "InvoiceValue", "category": "abbreviation"}
+{"noisy": "Invoice Amount", "canonical": "InvoiceValue", "category": "synonym"}
+{"noisy": "Inv Value", "canonical": "InvoiceValue", "category": "abbreviation"}
+{"noisy": "Inv Val", "canonical": "InvoiceValue", "category": "abbreviation"}
+{"noisy": "invoice value", "canonical": "InvoiceValue", "category": "lowercase"}
+{"noisy": "Value of Invoice", "canonical": "InvoiceValue", "category": "reorder"}
+{"noisy": "Total Invoice Value", "canonical": "InvoiceValue", "category": "extra_word"}
+{"noisy": "Reverse Charge", "canonical": "ReverseChargeFlag", "category": "truncation"}
+{"noisy": "RCM Flag", "canonical": "ReverseChargeFlag", "category": "abbreviation"}
+{"noisy": "Reverse Charge Applicable", "canonical": "ReverseChargeFlag", "category": "expansion"}
+{"noisy": "reverse charge flag", "canonical": "ReverseChargeFlag", "category": "lowercase"}
+{"noisy": "RC Flag", "canonical": "ReverseChargeFlag", "category": "abbreviation"}
+{"noisy": "Eligibility", "canonical": "EligibilityIndicator", "category": "truncation"}
+{"noisy": "ITC Eligible", "canonical": "EligibilityIndicator", "category": "synonym"}
+{"noisy": "Eligibility Flag", "canonical": "EligibilityIndicator", "category": "synonym"}
+{"noisy": "eligibility indicator", "canonical": "EligibilityIndicator", "category": "lowercase"}
+{"noisy": "Common Supply", "canonical": "CommonSupplyIndicator", "category": "truncation"}
+{"noisy": "Common Supply Flag", "canonical": "CommonSupplyIndicator", "category": "synonym"}
+{"noisy": "common supply indicator", "canonical": "CommonSupplyIndicator", "category": "lowercase"}
+{"noisy": "Avail IGST", "canonical": "AvailableIGST", "category": "abbreviation"}
+{"noisy": "Available IGST Amt", "canonical": "AvailableIGST", "category": "extra_word"}
+{"noisy": "ITC IGST", "canonical": "AvailableIGST", "category": "synonym"}
+{"noisy": "available igst", "canonical": "AvailableIGST", "category": "lowercase"}
+{"noisy": "AVAIL IGST", "canonical": "AvailableIGST", "category": "allcaps"}
+{"noisy": "Avail CGST", "canonical": "AvailableCGST", "category": "abbreviation"}
+{"noisy": "Available CGST Amt", "canonical": "AvailableCGST", "category": "extra_word"}
+{"noisy": "ITC CGST", "canonical": "AvailableCGST", "category": "synonym"}
+{"noisy": "available cgst", "canonical": "AvailableCGST", "category": "lowercase"}
+{"noisy": "Avail SGST", "canonical": "AvailableSGST", "category": "abbreviation"}
+{"noisy": "Available SGST Amt", "canonical": "AvailableSGST", "category": "extra_word"}
+{"noisy": "ITC SGST", "canonical": "AvailableSGST", "category": "synonym"}
+{"noisy": "available sgst", "canonical": "AvailableSGST", "category": "lowercase"}
+{"noisy": "Avail Cess", "canonical": "AvailableCess", "category": "abbreviation"}
+{"noisy": "Available Cess Amt", "canonical": "AvailableCess", "category": "extra_word"}
+{"noisy": "ITC Cess", "canonical": "AvailableCess", "category": "synonym"}
+{"noisy": "available cess", "canonical": "AvailableCess", "category": "lowercase"}
+{"noisy": "ITC Reversal", "canonical": "ITCReversalIdentifier", "category": "truncation"}
+{"noisy": "ITC Rev ID", "canonical": "ITCReversalIdentifier", "category": "abbreviation"}
+{"noisy": "ITC Reversal Flag", "canonical": "ITCReversalIdentifier", "category": "synonym"}
+{"noisy": "itc reversal identifier", "canonical": "ITCReversalIdentifier", "category": "lowercase"}
+{"noisy": "Reason for CDN", "canonical": "ReasonForCreditDebitNote", "category": "abbreviation"}
+{"noisy": "Credit Debit Note Reason", "canonical": "ReasonForCreditDebitNote", "category": "reorder"}
+{"noisy": "CDN Reason", "canonical": "ReasonForCreditDebitNote", "category": "abbreviation"}
+{"noisy": "reason for credit debit note", "canonical": "ReasonForCreditDebitNote", "category": "lowercase"}
+{"noisy": "Reason (CR/DR Note)", "canonical": "ReasonForCreditDebitNote", "category": "punctuation"}
+{"noisy": "Purchase Voucher No", "canonical": "PurchaseVoucherNumber", "category": "abbreviation"}
+{"noisy": "PV No", "canonical": "PurchaseVoucherNumber", "category": "abbreviation"}
+{"noisy": "Purchase Voucher Num", "canonical": "PurchaseVoucherNumber", "category": "abbreviation"}
+{"noisy": "purchase voucher number", "canonical": "PurchaseVoucherNumber", "category": "lowercase"}
+{"noisy": "Purchase Voucher Date", "canonical": "PurchaseVoucherDate", "category": "spaced"}
+{"noisy": "PV Date", "canonical": "PurchaseVoucherDate", "category": "abbreviation"}
+{"noisy": "Purchase Voucher Dt", "canonical": "PurchaseVoucherDate", "category": "abbreviation"}
+{"noisy": "purchase voucher date", "canonical": "PurchaseVoucherDate", "category": "lowercase"}
+{"noisy": "Payment Voucher No", "canonical": "PaymentVoucherNumber", "category": "abbreviation"}
+{"noisy": "Pay Voucher No", "canonical": "PaymentVoucherNumber", "category": "abbreviation"}
+{"noisy": "Payment Vch No", "canonical": "PaymentVoucherNumber", "category": "abbreviation"}
+{"noisy": "payment voucher number", "canonical": "PaymentVoucherNumber", "category": "lowercase"}
+{"noisy": "Payment Date", "canonical": "PaymentDate", "category": "spaced"}
+{"noisy": "Pay Date", "canonical": "PaymentDate", "category": "abbreviation"}
+{"noisy": "Date of Payment", "canonical": "PaymentDate", "category": "reorder"}
+{"noisy": "payment date", "canonical": "PaymentDate", "category": "lowercase"}
+{"noisy": "Contract No", "canonical": "ContractNumber", "category": "abbreviation"}
+{"noisy": "Agreement No", "canonical": "ContractNumber", "category": "synonym"}
+{"noisy": "Contract Num", "canonical": "ContractNumber", "category": "abbreviation"}
+{"noisy": "contract number", "canonical": "ContractNumber", "category": "lowercase"}
+{"noisy": "Contract Date", "canonical": "ContractDate", "category": "spaced"}
+{"noisy": "Contract Dt", "canonical": "ContractDate", "category": "abbreviation"}
+{"noisy": "Date of Contract", "canonical": "ContractDate", "category": "reorder"}
+{"noisy": "contract date", "canonical": "ContractDate", "category": "lowercase"}
+{"noisy": "Contract Value", "canonical": "ContractValue", "category": "spaced"}
+{"noisy": "Contract Amt", "canonical": "ContractValue", "category": "abbreviation"}
+{"noisy": "Agreement Value", "canonical": "ContractValue", "category": "synonym"}
+{"noisy": "contract value", "canonical": "ContractValue", "category": "lowercase"}
+{"noisy": "Unnamed: 3", "canonical": "SourceIdentifier", "category": "excel_artifact"}
+{"noisy": "Column1", "canonical": "SourceIdentifier", "category": "excel_artifact"}
+{"noisy": "Sheet1", "canonical": "SourceFileName", "category": "excel_artifact"}
