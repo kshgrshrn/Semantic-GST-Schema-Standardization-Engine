@@ -28,3 +28,4 @@ out.xlsx
 # misc
 technical_review.md
 CLAUDE.md
+gen_eval_set.py

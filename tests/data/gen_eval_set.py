@@ -1,4 +1,3 @@
-"""Generate eval_set.jsonl — run once, commit the output."""
 import json, os
 
 ENTRIES = [
