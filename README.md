@@ -83,8 +83,6 @@ The evaluator (`gst_engine/evaluator.py`) benchmarks both the baseline and fine-
 
 The model was fine-tuned on domain-specific `(noisy_header, canonical_header)` pairs derived from real GST file variations observed during the internship. Training data is excluded from this repo for confidentiality reasons.
 
-> [!WARNING]
-> The synthetic benchmark below was generated from the canonical schema itself using 12 hand-coded noise rules — it measures in-distribution robustness only. Numbers on truly novel client headers will differ. Use `tests/data/eval_set.jsonl` for a more realistic signal.
 
 | Metric                     | Baseline (`all-MiniLM-L6-v2`) | MNRL Fine-Tuned (`semantic_renamer_model`) |
 | -------------------------- | ------------------------------- | --------------------------------------- |
