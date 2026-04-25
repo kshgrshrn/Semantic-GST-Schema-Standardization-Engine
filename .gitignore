@@ -1,6 +1,6 @@
 # Fine-tuned model weights (too large)
 semantic_renamer_model/
-semantic_renamer_model_v2/
+semantic_renamer_model_*/
 tmp_trainer/
 
 # Legacy version (monolithic)
@@ -21,6 +21,7 @@ env/
 
 # Confidential Data & Outputs
 trainingdata.xlsx
+trainingdata_mnrl.xlsx
 renamed.xlsx
 audit.jsonl
 out.xlsx

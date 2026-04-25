@@ -40,34 +40,48 @@ This project solves it by using a Hugging Face Sentence Transformer to understan
 ## How It Works
 
 ```mermaid
-flowchart LR
-    subgraph Input
-        A[Client Excel]
+flowchart TD
+    subgraph Data Input
+        A[Messy Client Excel Headers]
     end
 
-    subgraph Inference Engine
-        B(Batch Encode)
-        C(Cosine Similarity)
-        D{Collision Check}
-        B --> C --> D
+    subgraph Knowledge Base
+        S[(61-Field Canonical Schema)]
     end
 
-    subgraph Output
-        E[Standardized Excel]
-        F[JSONL Audit Log]
+    subgraph V3 Inference Engine
+        B(Batch Encode via MNRL Model)
+        C(Semantic Similarity Search)
+        D{Decision Logic}
+        E[Collision Resolution]
+        
+        B --> C
+        S -.-> C
+        C --> D
+        D -- "Conflict Found" --> E
+    end
+
+    subgraph Auditable Output
+        F[Standardized Excel]
+        G[JSONL Audit Trail]
     end
 
     A --> B
-    D -- "Match > 0.5" --> E
-    D -- "Conflicts / Low Score" --> F
-    E -.-> F
+    D -- "Score > 0.55" --> F
+    D -- "Score < 0.35" --> G
+    E -- "Highest Score Wins" --> F
+    E -- "Dropped Matches" --> G
+    F -.-> G
 ```
 
-1. **Batch Extraction:** Reads the raw `.xlsx` file and batches all unique headers.
-2. **Semantic Embedding:** Generates dense vector embeddings using the MNRL-finetuned Sentence Transformer.
-3. **Similarity Matrix:** Computes cosine similarity between all input headers and the 61 canonical GST fields simultaneously.
-4. **Collision Resolution:** Maps inputs to their highest-scoring canonical target. If two inputs compete for the same target, the highest scorer wins.
-5. **Auditable Output:** Generates a clean `.xlsx` file alongside a `JSONL` audit log tracking every automated decision and flagged collision.
+1. **Vector Batching:** Unique client headers are batched and encoded into 384-dimensional dense vectors using a fine-tuned **MNRL Sentence Transformer**.
+2. **Semantic Search:** Input vectors are compared against the **61-field canonical GST schema**.
+3. **Thresholding Logic:**
+   - **Auto-Mapped (>0.55):** High-confidence matches are renamed automatically.
+   - **Low Confidence (0.35 - 0.55):** Matches are renamed but flagged for human review.
+   - **Unmapped (<0.35):** Input is preserved as-is and logged as a failure.
+4. **Collision Resolution:** Implements a "Highest-Score-Wins" strategy. If two messy columns (e.g., "Tax" and "Total Tax") both target "IGSTValue", the engine preserves the better match and flags the other as `collision_dropped`.
+5. **JSONL Audit Trail:** Every single decision—including top-3 candidates, scores, and collision statuses—is recorded for enterprise auditability.
 
 ### Core Tech Stack
 
@@ -83,14 +97,13 @@ The evaluator (`gst_engine/evaluator.py`) benchmarks both the baseline and fine-
 
 The model was fine-tuned on domain-specific `(noisy_header, canonical_header)` pairs derived from real GST file variations observed during the internship. Training data is excluded from this repo for confidentiality reasons.
 
-
 | Metric                     | Baseline (`all-MiniLM-L6-v2`) | MNRL Fine-Tuned (`semantic_renamer_model`) |
-| -------------------------- | ------------------------------- | --------------------------------------- |
-| **Top-1 Accuracy**   | 58.19%                          | **66.55%** (+8.36%)               |
-| **Top-3 Accuracy**   | 77.00%                          | **82.23%** (+5.23%)               |
-| **Macro F1 Score**   | 61.16%                          | **72.30%** (+11.14%)               |
-| **Avg Top-1 Cosine** | 67.28%                          | **61.82%***              |
-| **Latency / column** | 0.28 ms                         | **0.36 ms** (Batch encoded)       |
+| -------------------------- | ------------------------------- | -------------------------------------------- |
+| **Top-1 Accuracy**   | 58.19%                          | **66.55%** (+8.36%)                    |
+| **Top-3 Accuracy**   | 77.00%                          | **82.23%** (+5.23%)                    |
+| **Macro F1 Score**   | 61.16%                          | **72.30%** (+11.14%)                   |
+| **Avg Top-1 Cosine** | 67.28%                          | **61.82%***                            |
+| **Latency / column** | 4.16 ms                         | **0.36 ms** (Batch encoded)            |
 
 *\*Note on Confidence: The transition to MultipleNegativesRankingLoss (MNRL) inherently drives raw cosine similarities down globally as it learns to push hard negatives away from each other. However, this wider margin results in vastly superior discrimination power, driving the **Macro F1 score up to 72.30%**.*
 
@@ -98,7 +111,7 @@ The model was fine-tuned on domain-specific `(noisy_header, canonical_header)` p
 When evaluated on the realistic 287-entry dataset (which includes abbreviations, reorderings, and Excel artifacts instead of just schema-derived noise), the baseline model's Top-1 accuracy drops to 58%. The MNRL fine-tuned model provides a solid **+8.36% Top-1 accuracy uplift** and a massive **+11.14% boost in Macro F1**, proving it has learned to aggressively distinguish between near-synonym tax categories (e.g., IGST vs CGST).
 
 **On Latency:**
-By moving to batch encoding in V3, inference latency dropped from ~4.16 ms per column to **0.27 ms per column** (~15x speedup), making the system highly scalable for massive tax data dumps.
+By moving to batch encoding in V3, inference latency dropped from ~4.16 ms per column to **0.36 ms per column** (~11x speedup), making the system highly scalable for massive tax data dumps.
 
 ---
 
