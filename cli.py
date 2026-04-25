@@ -28,6 +28,7 @@ def main() -> None:
         model_name=config["model_name"],
         model_path=config["model_path"],
         threshold=config["threshold"],
+        review_threshold=config.get("review_threshold", 0.55),
     )
 
     dataframe = read_excel(args.input)

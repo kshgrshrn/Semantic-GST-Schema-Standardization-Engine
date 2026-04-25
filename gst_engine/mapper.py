@@ -48,8 +48,8 @@ class SchemaMapper:
         self,
         model_name: str = "all-MiniLM-L6-v2",
         model_path: str | None = None,
-        threshold: float = 0.5,
-        review_threshold: float = 0.7,
+        threshold: float = 0.35,
+        review_threshold: float = 0.55,
     ) -> None:
         self.threshold = threshold
         self.review_threshold = review_threshold
