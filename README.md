@@ -169,7 +169,7 @@ from gst_engine.mapper import SchemaMapper
 df = pd.read_excel("client_vendor_data.xlsx")
 
 # Initialize mapper (review_threshold controls auto_mapped vs low_confidence label)
-mapper = SchemaMapper(model_name="all-MiniLM-L6-v2", threshold=0.5, review_threshold=0.7)
+mapper = SchemaMapper(model_name="all-MiniLM-L6-v2", threshold=0.35, review_threshold=0.55)
 
 # Map headers — results keyed by input column name
 renamed_df, results = mapper.rename_dataframe(df)
