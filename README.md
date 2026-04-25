@@ -117,13 +117,16 @@ pip install -r requirements.txt
 
 ```bash
 # Run the standardizer on the sample input file
-python cli.py --input sample_data/sample_input.xlsx --output renamed.xlsx
+python cli.py --input sample_data/sample_input.xlsx --output sample_data/sample_output.xlsx
 
-# Write a JSONL audit log of every mapping decision
-python cli.py --input sample_data/sample_input.xlsx --output renamed.xlsx --audit audit.jsonl
+# Write a JSONL audit log of every mapping decision and collision
+python cli.py --input sample_data/sample_input.xlsx --output sample_data/sample_output.xlsx --audit sample_data/sample_audit.jsonl
 
-# Run the benchmark (uses tests/data/eval_set.jsonl if present, else synthetic)
+# Run the benchmark (evaluates against 287 real-world header variants)
 python -m gst_engine.evaluator
+
+# Fine-tune the model using MNRL hard-negative mining (requires local dataset)
+python -m gst_engine.trainer --training-file trainingdata_mnrl.xlsx --loss mnrl --output semantic_renamer_model
 
 # Run the test suite
 python -m pytest tests/ -v
