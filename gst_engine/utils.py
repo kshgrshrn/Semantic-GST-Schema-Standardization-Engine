@@ -36,4 +36,5 @@ def load_config(config_path: str) -> Dict[str, Any]:
         "model_name": config.get("model_name", "all-MiniLM-L6-v2"),
         "model_path": config.get("model_path"),
         "threshold": float(config.get("threshold", 0.5)),
+        "review_threshold": float(config.get("review_threshold", 0.55)),
     }

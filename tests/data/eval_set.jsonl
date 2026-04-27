@@ -140,11 +140,11 @@
 {"noisy": "SKU", "canonical": "ItemCode", "category": "acronym"}
 {"noisy": "Item Cd", "canonical": "ItemCode", "category": "abbreviation"}
 {"noisy": "item code", "canonical": "ItemCode", "category": "lowercase"}
-{"noisy": "Item Description", "canonical": "ItemDescriptiion", "category": "corrected_typo"}
-{"noisy": "Item Desc", "canonical": "ItemDescriptiion", "category": "abbreviation"}
-{"noisy": "Product Description", "canonical": "ItemDescriptiion", "category": "synonym"}
-{"noisy": "Goods Description", "canonical": "ItemDescriptiion", "category": "synonym"}
-{"noisy": "item description", "canonical": "ItemDescriptiion", "category": "lowercase"}
+{"noisy": "Item Description", "canonical": "ItemDescription", "category": "corrected_typo"}
+{"noisy": "Item Desc", "canonical": "ItemDescription", "category": "abbreviation"}
+{"noisy": "Product Description", "canonical": "ItemDescription", "category": "synonym"}
+{"noisy": "Goods Description", "canonical": "ItemDescription", "category": "synonym"}
+{"noisy": "item description", "canonical": "ItemDescription", "category": "lowercase"}
 {"noisy": "Item Category", "canonical": "CategoryOfItem", "category": "reorder"}
 {"noisy": "Category", "canonical": "CategoryOfItem", "category": "truncation"}
 {"noisy": "Product Category", "canonical": "CategoryOfItem", "category": "synonym"}

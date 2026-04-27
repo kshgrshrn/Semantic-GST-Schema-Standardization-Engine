@@ -174,12 +174,12 @@ ENTRIES = [
     ("SKU", "ItemCode", "acronym"),
     ("Item Cd", "ItemCode", "abbreviation"),
     ("item code", "ItemCode", "lowercase"),
-    # ── ItemDescriptiion ──────────────────────────────────────────────────
-    ("Item Description", "ItemDescriptiion", "corrected_typo"),
-    ("Item Desc", "ItemDescriptiion", "abbreviation"),
-    ("Product Description", "ItemDescriptiion", "synonym"),
-    ("Goods Description", "ItemDescriptiion", "synonym"),
-    ("item description", "ItemDescriptiion", "lowercase"),
+    # ── ItemDescription ──────────────────────────────────────────────────
+    ("Item Description", "ItemDescription", "corrected_typo"),
+    ("Item Desc", "ItemDescription", "abbreviation"),
+    ("Product Description", "ItemDescription", "synonym"),
+    ("Goods Description", "ItemDescription", "synonym"),
+    ("item description", "ItemDescription", "lowercase"),
     # ── CategoryOfItem ────────────────────────────────────────────────────
     ("Item Category", "CategoryOfItem", "reorder"),
     ("Category", "CategoryOfItem", "truncation"),
